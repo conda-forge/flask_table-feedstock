@@ -11,23 +11,24 @@ source:
 
 build:
   noarch: python
-  number: 0
+  number: 1
   script:
     - rd /s /q "docs"  # [win]
     - "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
 
 requirements:
   host:
-    - python
+    - python {{ python_min }}
     - pip
   run:
-    - python
+    - python >={{ python_min }}
     - flask
     - flask-babel
 
 test:
   requires:
     - flask-testing
+    - python {{ python_min }}
   source_files:
     - tests
   imports:
